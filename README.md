@@ -1,6 +1,6 @@
 # Pariksha.
 
-[![Build Status](https://travis-ci.org/ayushworks/pariksha.svg?branch=master)](https://travis-ci.com/ayushworks/pariksha)
+[![Build Status](https://travis-ci.com/ayushworks/pareeksha.svg?branch=master)](https://travis-ci.com/ayushworks/pareeksha)
 
 A scala library for validation. 
 
