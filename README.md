@@ -1,17 +1,21 @@
-#### Pareeksha is Scala library for validation.
+# Pareeksha.
+
+[![Build Status](https://travis-ci.org/ayushworks/pareeksha.svg?branch=master)](https://travis-ci.com/ayushworks/pareeksha)
+
+A scala library for validation. 
 
 The protagonist of our story is the `Validator[T]` **trait**  which validates instances of `T` by using 
 a list of `Validation[T]`.   
 
 Consider a simple case class
-```
+```scala
 case class Employee(name: String, age: Int)
 
 ```
 
 We can define a list of _**Validation**_ for this type 
 
-```
+```scala
 import pareeksha.dsl_
 
 implicit val validations = validator[Employee]
@@ -23,7 +27,7 @@ implicit val validations = validator[Employee]
 And then we can validate any instance of `Employee` type. All we need is  `Validator[Employee]` implicitly
 in scope 
 
-```
+```scala
 import pareeskha.dsl_
 
 val employee = Employee("Jim Halpert", 30)
@@ -39,7 +43,7 @@ employee.validate
 
 Everybody knows Jenna Fischer from the office!
 
-```
+```scala
 
 val beesly = Employee("Pam Beesly", 28)
 
@@ -49,7 +53,7 @@ beesly.validate == Valid(beesly)
 
 And for an invalid employee
 
-```
+```scala
 
 val bob = Employee("Bob Vance", 45)
 
@@ -61,7 +65,7 @@ bob.validate == Invalid(bob, List(ValidationError("He owns Vance Refrigeration a
 
 When we have a type that contains another type, and we already have a `Validator` for the nested type, we can use the existing validator and delegate to that.
 
-```
+```scala
 
 case class Manager(name: String, age: Int)
 
@@ -71,7 +75,7 @@ case class Office(manager: Manager, region: String)
 
 We could define **_validations_** for Manager to be used in multiple places
 
-```
+```scala
 val validations = validator[Manager]
     .check(_.name.nonEmpty, msgNameEmpty)
     .check(_.age > 25, msgAgeInvalid)
@@ -82,7 +86,7 @@ automatically for the manager field, assuming it is available as an implicit in 
 
 Note, how we use the `validate` method on the _contained_ type.
 
-```
+```scala
 val validations = validator[Office]
                     .check(_.manager.validate)
                     .check(_.region.nonEmpty, msgRegionNonEmpty)
@@ -101,7 +105,7 @@ Sometimes it is desirable to not run all validations exhaustively but rather sto
 
 We can use the `validateFailFast` method on a type `T` . The requirements remain the same with a presence of `Validator[T]` needed.
 
-```
+```scala
 val manager = Manager("", 18)
 
 val validations = validator[Manager]
