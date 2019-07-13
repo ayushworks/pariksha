@@ -1,6 +1,6 @@
-package pareeksha.models
+package pariksha.models
 
-import pareeksha.dsl._
+import pariksha.dsl._
 
 /**
  * @author Ayush Mittal
@@ -38,7 +38,7 @@ case class Involved(employee1: Employee, employee2: Employee)
 
 object Involved {
 
-  import pareeksha.syntax._
+  import pariksha.syntax._
 
   val exceptionMsg = "exception thrown"
   implicit val validations = validator[Involved]
@@ -51,7 +51,7 @@ case class Office(manager: Manager)
 
 object Office {
 
-  import pareeksha.syntax._
+  import pariksha.syntax._
 
   implicit val validations = validator[Office].check(_.manager.validate)
 }

@@ -1,6 +1,6 @@
-# Pareeksha.
+# Pariksha.
 
-[![Build Status](https://travis-ci.org/ayushworks/pareeksha.svg?branch=master)](https://travis-ci.com/ayushworks/pareeksha)
+[![Build Status](https://travis-ci.org/ayushworks/pariksha.svg?branch=master)](https://travis-ci.com/ayushworks/pariksha)
 
 A scala library for validation. 
 
@@ -16,7 +16,7 @@ case class Employee(name: String, age: Int)
 We can define a list of _**Validation**_ for this type 
 
 ```scala
-import pareeksha.dsl_
+import pariksha.dsl_
 
 implicit val validations = validator[Employee]
                     .check(_.name.nonEmpty, "name must not be empty")

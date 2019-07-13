@@ -1,12 +1,12 @@
-package pareeksha
+package pariksha
 
 /**
  * @author Ayush Mittal
  */
 object dsl {
 
-  type Validator[T] = pareeksha.Validator[T]
-  val validator = pareeksha.Validator
+  type Validator[T] = pariksha.Validator[T]
+  val validator = pariksha.Validator
 
   implicit class ValidatorOps[T](val v: Validator[T]) {
 

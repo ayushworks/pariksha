@@ -1,4 +1,4 @@
-name := "pareeksha"
+name := "pariksha"
 
 version := "0.1"
 
@@ -14,9 +14,9 @@ libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "3.0.2" % Test
 )
 
-homepage := Some(url("https://github.com/ayushworks/pareeksha"))
+homepage := Some(url("https://github.com/ayushworks/pariksha"))
 
-scmInfo := Some(ScmInfo(url("https://github.com/ayushworks/pareeksha"), "scm:git:git@github.com:ayushworks/pareeksha.git"))
+scmInfo := Some(ScmInfo(url("https://github.com/ayushworks/pariksha"), "scm:git:git@github.com:ayushworks/pariksha.git"))
 
 publishMavenStyle := true
 

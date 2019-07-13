@@ -1,4 +1,4 @@
-package pareeksha
+package pariksha
 
 import scala.util.Try
 

@@ -1,7 +1,7 @@
-package pareeksha
+package pariksha
 
 import org.scalatest.{Matchers, WordSpec}
-import pareeksha.models.{Employee, Involved, Manager, Values}
+import pariksha.models.{Employee, Involved, Manager, Values}
 
 /**
  * @author Ayush Mittal

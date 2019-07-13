@@ -1,4 +1,4 @@
-package pareeksha
+package pariksha
 
 /**
  * @author Ayush Mittal

@@ -1,4 +1,4 @@
-package pareeksha.models
+package pariksha.models
 
 /**
  * @author Ayush Mittal
