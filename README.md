@@ -1,4 +1,4 @@
-#### Pareeskha is Scala library for validation.
+#### Pareeksha is Scala library for validation.
 
 The protagonist of our story is the `Validator[T]` **trait**  which validates instances of `T` by using 
 a list of `Validation[T]`.   
