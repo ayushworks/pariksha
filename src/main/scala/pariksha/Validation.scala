@@ -1,5 +1,8 @@
 package pariksha
 
+import pariksha.RuleResult.{Failed, Passed}
+import pariksha.ValidationResult.{Invalid, Valid}
+
 import scala.util.Try
 
 /**
@@ -7,22 +10,25 @@ import scala.util.Try
  */
 
 trait Validation[T] {
-  def check(t: T): RuleResult[T]
+  def check(value: T): RuleResult
 }
 
-class SimpleValidation[T](rule: T => Boolean, msgWhenFails: String) extends Validation[T] {
-  override def check(t: T): RuleResult[T] = {
-    if (Try(rule.apply(t)).recover{
-      case _: Throwable => false
-    }.get) new RulePass(t)
-    else new RuleFailed(List(ValidationError(msgWhenFails)))
+object Validation {
+  class Simple[T](rule: T => Boolean, msgWhenFails: String) extends Validation[T] {
+    override def check(value: T): RuleResult = {
+      Try(rule.apply(value)).toOption match {
+        case Some(true) => Passed(value)
+        case _ => Failed(List(ValidationError(msgWhenFails)))
+      }
+    }
   }
-}
 
-class ComposedValidation[T, M](val rule: T => ValidationResult[M]) extends Validation[T] {
-  override def check(t: T): RuleResult[T] = {
-    val validationResult = rule(t)
-    if (validationResult.isValid) new RulePass[T](t)
-    else new RuleFailed(validationResult.errors)
+  class Composed[T, M](val rule: T => ValidationResult) extends Validation[T] {
+    override def check(value: T): RuleResult = {
+      rule(value) match {
+        case Valid(_) => Passed(value)
+        case Invalid(_, errors) => Failed(errors)
+      }
+    }
   }
 }

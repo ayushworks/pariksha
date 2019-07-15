@@ -3,37 +3,17 @@ package pariksha
 /**
  * @author Ayush Mittal
  */
-sealed trait ValidationResult[T]{
-
-  def isValid: Boolean
-
-  def errors: List[ValidationError]
-
-  def value: T
-
-}
-
-case class Valid[T](val value: T) extends ValidationResult[T] {
-
-  override def isValid: Boolean = true
-
-  override def errors: List[ValidationError] = Nil
-
-}
-
-case class Invalid[T](val value: T, val errors: List[ValidationError]) extends ValidationResult[T] {
-
-  override def isValid: Boolean = false
-
-}
+sealed trait ValidationResult
 
 object ValidationResult {
+  case class Valid[T](value: T) extends ValidationResult
+  case class Invalid[T](value: T, errors: List[ValidationError]) extends ValidationResult
 
-  def apply[T](value: T, result: List[RuleResult[T]]): ValidationResult[T] = {
+  def apply[T](value: T, result: List[RuleResult]): ValidationResult = {
     ResultUtil.fromRuleResults(value, result)
   }
 
-  def failFast[T](value: T, validations: List[Validation[T]]): ValidationResult[T] = {
+  def failFast[T](value: T, validations: List[Validation[T]]): ValidationResult = {
     ResultUtil.fromValidationList(value, validations)
   }
 }
