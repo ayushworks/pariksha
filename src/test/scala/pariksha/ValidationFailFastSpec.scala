@@ -1,7 +1,7 @@
 package pariksha
 
 import org.scalatest.{Matchers, WordSpec}
-import pariksha.models.{Employee, Involved, Manager, Values}
+import pariksha.models.{Employee, Involved, Manager, Values, Visits}
 
 /**
  * @author Ayush Mittal
@@ -58,6 +58,23 @@ class ValidationFailFastSpec extends WordSpec with Matchers with Values {
         inValidOffice3.validateFailFast.errors shouldBe List(
           ValidationError(Manager.msgNoSubordinates)
         )
+      }
+    }
+
+    "validations mutating statue" should {
+
+      "stop when first validation fails" in {
+
+        validVisits.validateFailFast.errors shouldBe Nil
+        validVisits.value shouldBe 4
+
+        validVisits.validateFailFast.isValid shouldBe true
+
+        invalidVisits.validateFailFast.errors shouldBe List(
+          ValidationError(Visits.errorMsg)
+        )
+
+        invalidVisits.value shouldBe -2
       }
     }
 

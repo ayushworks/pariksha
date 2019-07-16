@@ -47,6 +47,7 @@ object Involved {
     .check(_.employee2.validate)
 
 }
+
 case class Office(manager: Manager)
 
 object Office {
@@ -54,4 +55,21 @@ object Office {
   import pariksha.syntax._
 
   implicit val validations: Validator[Office] = validator[Office].check(_.manager.validate)
+}
+
+case class Visits(var value: Int)
+
+object Visits {
+
+  val errorMsg = "value must be greater than zero"
+
+  implicit val validations: Validator[Visits] = validator[Visits]
+    .check( {
+      x => x.value = x.value + 1
+        x.value > 0
+    }, errorMsg)
+    .check( {
+      x => x.value = x.value + 1
+        x.value > 0
+    }, errorMsg)
 }

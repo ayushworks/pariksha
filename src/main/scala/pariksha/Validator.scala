@@ -1,6 +1,6 @@
 package pariksha
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 /**
  * @author Ayush Mittal
@@ -15,6 +15,10 @@ trait Validator[T] {
 
   def validateFailFast(obj: T): ValidationResult = {
     ValidationResult.failFast(obj, validations)
+  }
+
+  def validateAsync(obj: T)(implicit executionContext: ExecutionContext): Future[ValidationResult] = {
+    ValidationResult.validateAsync(obj, validations)
   }
 
 }

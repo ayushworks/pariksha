@@ -125,6 +125,26 @@ manager.validateFailFast == Invalid(manager, List(
 The second **_check_** is not even called in this case as the first one had failed. This is useful when 
 the validations are resource/time consuming and we would like to stop at the first sign of problems.
 
+##### Async Validations :
+
+It is sometimes desirable to run validations in parallel and return a `Future` result at the end. We can
+use `validateAsync` for the same.
+
+```scala
+val manager = Manager("", 18)
+
+val validations = validator[Manager]
+    .check(_.name.nonEmpty, msgNameEmpty)
+    .check(_.age > 25, msgAgeInvalid)
+    
+manager.validateAsync == Future.successful(Invalid(manager, List(
+          ValidationError(Manager.msgNameEmpty),
+          ValidationError(Manager.msgAgeInvalid)
+        )))  
+```
+
+`validateAsync` needs an implicit `execution context` and it is in this context that all validations are run.
+
 ##### Next goals :
 
 * Provide validation helpers like `not null` on all fields

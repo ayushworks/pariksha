@@ -3,7 +3,7 @@ package pariksha
 import pariksha.ValidationResult.{Invalid, Valid}
 
 import scala.collection.GenTraversable
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 /**
  * @author Ayush Mittal
@@ -18,6 +18,12 @@ object syntax {
     def validateFailFast(implicit validator: Validator[T]): ValidationResult =
       validator.validateFailFast(t)
 
+  }
+
+  implicit class ValidationOps[T](t: T) {
+
+    def validateAsync(implicit validator: Validator[T], executionContext: ExecutionContext): Future[ValidationResult] =
+      validator.validateAsync(t)
   }
 
   implicit class ValidationsTraversableOps[T](ts: GenTraversable[T]) {

@@ -2,7 +2,7 @@ package pariksha
 
 import org.scalatest.{Matchers, WordSpec}
 import pariksha.ValidationResult.{Invalid, Valid}
-import pariksha.models.{Employee, Involved, Manager, Values}
+import pariksha.models.{Employee, Involved, Manager, Values, Visits}
 
 /**
   * @author Ayush Mittal
@@ -64,6 +64,22 @@ class ValidationResultSpec extends WordSpec with Matchers with Values {
         inValidOffice3.validate == Invalid(inValidOffice3, List(
           ValidationError(Manager.msgNoSubordinates)
         ))
+      }
+    }
+
+    "validations mutating statue" should {
+
+      "validate visits" in {
+
+        validVisits.validate == Valid(validVisits)
+        validVisits.value shouldBe 4
+
+        invalidVisits.validate == Invalid(invalidVisits, List(
+          ValidationError(Visits.errorMsg),
+          ValidationError(Visits.errorMsg)
+        ))
+
+        invalidVisits.value shouldBe -1
       }
     }
 

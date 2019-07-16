@@ -28,4 +28,9 @@ trait Values {
   val inValidOffice3 = Office(invalidManager3)
 
   val involved = Involved(validEmployee, invalidEmployee)
+
+  val validVisits = Visits(2)
+
+  val invalidVisits = Visits(-3)
+
 }
