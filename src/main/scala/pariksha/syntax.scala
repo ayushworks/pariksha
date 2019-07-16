@@ -18,7 +18,6 @@ object syntax {
     def validateFailFast(implicit validator: Validator[T]): ValidationResult =
       validator.validateFailFast(t)
 
-    def validateAsync(implicit validator: Validator[T]): Future[ValidationResult] = ???
   }
 
   implicit class ValidationsTraversableOps[T](ts: GenTraversable[T]) {
