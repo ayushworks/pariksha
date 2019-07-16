@@ -1,6 +1,7 @@
 package pariksha
 
 import org.scalatest.{Matchers, WordSpec}
+import pariksha.ValidationResult.{Invalid, Valid}
 import pariksha.models.{Employee, Involved, Manager, Values}
 
 /**

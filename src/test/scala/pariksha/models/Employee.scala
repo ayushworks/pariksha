@@ -12,7 +12,7 @@ object Employee {
   val msgNameEmpty = "employee name must not be empty"
   val msgAgeInvalid = "employee age must be above 18"
 
-  implicit val validations = validator[Employee]
+  implicit val validations: Validator[Employee] = validator[Employee]
     .check(_.name.nonEmpty, msgNameEmpty)
     .check(_.age > 18, msgAgeInvalid)
     .check(_.name != "Bob Vance", "He owns Vance Refrigeration and is not an employee")
@@ -41,8 +41,8 @@ object Involved {
   import pariksha.syntax._
 
   val exceptionMsg = "exception thrown"
-  implicit val validations = validator[Involved]
-    .check((t => throw new RuntimeException), exceptionMsg)
+  implicit val validations: Validator[Involved] = validator[Involved]
+    .check(_ => throw new RuntimeException, exceptionMsg)
     .check(_.employee1.validate)
     .check(_.employee2.validate)
 
@@ -53,5 +53,5 @@ object Office {
 
   import pariksha.syntax._
 
-  implicit val validations = validator[Office].check(_.manager.validate)
+  implicit val validations: Validator[Office] = validator[Office].check(_.manager.validate)
 }

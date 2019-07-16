@@ -1,5 +1,7 @@
 package pariksha
 
+import scala.concurrent.Future
+
 /**
  * @author Ayush Mittal
  */
@@ -7,16 +9,14 @@ trait Validator[T] {
 
   val validations: List[Validation[T]]
 
-  def validate(obj: T): ValidationResult[T] = {
-    ValidationResult(obj, validations.map {
-      validation =>
-        validation.check(obj)
-    })
+  def validate(obj: T): ValidationResult = {
+    ValidationResult(obj, validations.map(_.check(obj)))
   }
 
-  def validateFailFast(obj: T): ValidationResult[T] = {
+  def validateFailFast(obj: T): ValidationResult = {
     ValidationResult.failFast(obj, validations)
   }
+
 }
 
 object Validator {
