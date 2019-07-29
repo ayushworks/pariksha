@@ -1,7 +1,7 @@
 package pariksha
 
 import org.scalatest.{Matchers, WordSpec}
-import pariksha.models.{Employee, Involved, Manager, Values, Visits}
+import pariksha.models.{Employee, Involved, Manager, Office, Values, Visits}
 
 /**
  * @author Ayush Mittal
@@ -43,6 +43,10 @@ class ValidationFailFastSpec extends WordSpec with Matchers with Values {
       "validate office" in {
         validOffice.validateFailFast.errors shouldBe Nil
         validOffice.validateFailFast.isValid shouldBe true
+
+        nullManagerOffice.validateFailFast.errors shouldBe List(
+          ValidationError(Office.nullMsg)
+        )
 
         inValidOffice1.validateFailFast.errors shouldBe List(
           ValidationError(Manager.msgNameEmpty),

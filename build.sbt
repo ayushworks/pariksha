@@ -11,7 +11,10 @@ organization := "com.github.ayushworks"
 publishArtifact in Test := false
 
 libraryDependencies ++= Seq(
-  "org.scalatest" %% "scalatest" % "3.0.2" % Test
+  "org.scalatest" %% "scalatest" % "3.0.2" % Test,
+  // https://mvnrepository.com/artifact/com.chuusai/shapeless
+  "com.chuusai" %% "shapeless" % "2.3.2"
+
 )
 
 homepage := Some(url("https://github.com/ayushworks/pariksha"))

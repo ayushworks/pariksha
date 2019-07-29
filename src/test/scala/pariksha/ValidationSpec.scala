@@ -16,6 +16,10 @@ class ValidationSpec extends WordSpec with Matchers with Values {
       "validate employee" in {
         validEmployee.validate.isValid shouldBe true
 
+        nullEmployee.validate.errors shouldBe List(
+          ValidationError(Employee.msgNameEmpty),
+          ValidationError(Employee.nameIsNull)
+        )
         invalidEmployee.validate.isValid shouldBe false
 
         invalidEmployee.validate.errors shouldBe List(
@@ -49,6 +53,7 @@ class ValidationSpec extends WordSpec with Matchers with Values {
       "validate office" in {
         validOffice.validate.errors shouldBe Nil
         validOffice.validate.isValid shouldBe true
+
 
         inValidOffice1.validate.errors shouldBe List(
           ValidationError(Manager.msgNameEmpty),

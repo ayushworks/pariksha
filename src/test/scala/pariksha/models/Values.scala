@@ -9,6 +9,8 @@ trait Values {
 
   val validEmployee = Employee("Jim", 20)
 
+  val nullEmployee = Employee(null, 20)
+
   val bob = Employee("Bob Vance", 45)
 
   val invalidManager1 = Manager("", 18, Nil)
@@ -20,6 +22,8 @@ trait Values {
   val validManager = Manager("Michael", 26, List(Employee("Jim", 20), Employee("Dwight", 21))) // this could be a long list
 
   val validOffice = Office(validManager)
+
+  val nullManagerOffice = Office(null)
 
   val inValidOffice1 = Office(invalidManager1)
 

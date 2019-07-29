@@ -1,7 +1,6 @@
 package pariksha.models
 
 import pariksha.dsl._
-
 /**
  * @author Ayush Mittal
  */
@@ -11,11 +10,13 @@ object Employee {
 
   val msgNameEmpty = "employee name must not be empty"
   val msgAgeInvalid = "employee age must be above 18"
+  val nameIsNull = "name field is null"
 
   implicit val validations: Validator[Employee] = validator[Employee]
     .check(_.name.nonEmpty, msgNameEmpty)
     .check(_.age > 18, msgAgeInvalid)
     .check(_.name != "Bob Vance", "He owns Vance Refrigeration and is not an employee")
+    .checkNotNull(nameIsNull)
 }
 
 
@@ -53,8 +54,10 @@ case class Office(manager: Manager)
 object Office {
 
   import pariksha.syntax._
-
-  implicit val validations: Validator[Office] = validator[Office].check(_.manager.validate)
+  val nullMsg = "manager must not be null"
+  implicit val validations: Validator[Office] = validator[Office]
+    .checkNotNull(nullMsg)
+    .check(_.manager.validate)
 }
 
 case class Visits(var value: Int)
