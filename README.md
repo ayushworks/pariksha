@@ -61,6 +61,10 @@ bob.validate == Invalid(bob, List(ValidationError("He owns Vance Refrigeration a
 
 ```
 
+`Valid` and `Invalid` types provide methods like `errors` - to get list of errors. This is `Nil` incase of valid result and non-zero size list otherwise.
+
+
+
 ####Helper validations
 
 **not null** check : There might be  times when we want to ensure that null values are not allowed.
