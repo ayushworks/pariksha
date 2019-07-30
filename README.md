@@ -60,6 +60,7 @@ val bob = Employee("Bob Vance", 45)
 bob.validate == Invalid(bob, List(ValidationError("He owns Vance Refrigeration and is not an employee")))
 
 ```
+
 ####Helper validations
 
 **not null** check : There might be  times when we want to ensure that null values are not allowed.
