@@ -44,10 +44,6 @@ class ValidationFailFastSpec extends WordSpec with Matchers with Values {
         validOffice.validateFailFast.errors shouldBe Nil
         validOffice.validateFailFast.isValid shouldBe true
 
-        nullManagerOffice.validateFailFast.errors shouldBe List(
-          ValidationError(Office.nullMsg)
-        )
-
         inValidOffice1.validateFailFast.errors shouldBe List(
           ValidationError(Manager.msgNameEmpty),
           ValidationError(Manager.msgAgeInvalid),

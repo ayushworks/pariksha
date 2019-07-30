@@ -9,8 +9,6 @@ trait Values {
 
   val validEmployee = Employee("Jim", 20)
 
-  val nullEmployee = Employee(null, 20)
-
   val bob = Employee("Bob Vance", 45)
 
   val invalidManager1 = Manager("", 18, Nil)
@@ -22,8 +20,6 @@ trait Values {
   val validManager = Manager("Michael", 26, List(Employee("Jim", 20), Employee("Dwight", 21))) // this could be a long list
 
   val validOffice = Office(validManager)
-
-  val nullManagerOffice = Office(null)
 
   val inValidOffice1 = Office(invalidManager1)
 
@@ -37,4 +33,17 @@ trait Values {
 
   val invalidVisits = Visits(-3)
 
+  val invalidCharacterAllNull = TVCharacter(null, null)
+
+  val emptyCharacter = TVCharacter("", "")
+
+  val validCharacter = TVCharacter("Sheldon", "Big Bang Theory")
+
+  val nullArtist = Artist(null, null)
+
+  val tvCharacterNullArtist = Artist("Kaley", TVCharacter(null, null))
+
+  val tvCharacterEmptyArtist = Artist("Kaley", TVCharacter("", ""))
+
+  val validArtist = Artist("Kaley", TVCharacter("Penny", "Big Bang Theory"))
 }

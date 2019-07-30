@@ -60,6 +60,30 @@ val bob = Employee("Bob Vance", 45)
 bob.validate == Invalid(bob, List(ValidationError("He owns Vance Refrigeration and is not an employee")))
 
 ```
+####Helper validations
+
+**not null** check : There might be  times when we want to ensure that null values are not allowed.
+
+
+```scala
+case class TVCharacter(name: String, showName: String)
+
+implicit val notNullValidations : Validator[TVCharacter] = validator[TVCharacter]
+    .checkNotNull()
+```
+
+`checkNotNull` is a neat short hand for ensuring none of the fields 
+are null.
+
+```scala
+val invalidCharacterAllNull = TVCharacter(null, null)
+invalidCharacterAllNull.validate(TVCharacter.notNullValidations).errors === List(
+          ValidationError("TVCharacter.'name' must not be null"),
+          ValidationError("TVCharacter.'showName' must not be null")
+        )
+```
+
+The result also informs the user about the specific fields in the class that were null.
 
 #### Nested Validations
 
@@ -125,7 +149,7 @@ manager.validateFailFast == Invalid(manager, List(
 The second **_check_** is not even called in this case as the first one had failed. This is useful when 
 the validations are resource/time consuming and we would like to stop at the first sign of problems.
 
-##### Async Validations :
+#### Async Validations :
 
 It is sometimes desirable to run validations in parallel and return a `Future` result at the end. We can
 use `validateAsync` for the same.

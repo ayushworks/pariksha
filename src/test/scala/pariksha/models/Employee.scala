@@ -10,13 +10,11 @@ object Employee {
 
   val msgNameEmpty = "employee name must not be empty"
   val msgAgeInvalid = "employee age must be above 18"
-  val nameIsNull = "name field is null"
 
   implicit val validations: Validator[Employee] = validator[Employee]
     .check(_.name.nonEmpty, msgNameEmpty)
     .check(_.age > 18, msgAgeInvalid)
     .check(_.name != "Bob Vance", "He owns Vance Refrigeration and is not an employee")
-    .checkNotNull(nameIsNull)
 }
 
 
@@ -54,9 +52,7 @@ case class Office(manager: Manager)
 object Office {
 
   import pariksha.syntax._
-  val nullMsg = "manager must not be null"
   implicit val validations: Validator[Office] = validator[Office]
-    .checkNotNull(nullMsg)
     .check(_.manager.validate)
 }
 
@@ -75,4 +71,30 @@ object Visits {
       x => x.value = x.value + 1
         x.value > 0
     }, errorMsg)
+}
+
+case class TVCharacter(name: String, showName: String)
+
+object TVCharacter {
+
+  val notNullValidations : Validator[TVCharacter] = validator[TVCharacter]
+    .checkNotNull()
+
+  val nameNonEmptyMsg = "character name must be not be empty"
+  val showNameNonEmptyMsg = "show name must not be empty"
+
+  val allValidations : Validator[TVCharacter] = validator[TVCharacter]
+    .checkNotNull()
+    .check(_.name.nonEmpty, nameNonEmptyMsg)
+    .check(_.showName.nonEmpty, showNameNonEmptyMsg)
+}
+
+case class Artist(name: String, character: TVCharacter)
+
+object Artist {
+
+  import pariksha.syntax._
+  implicit val validations : Validator[Artist] = validator[Artist]
+    .checkNotNull()
+    .check(_.character.validate(TVCharacter.allValidations))
 }
