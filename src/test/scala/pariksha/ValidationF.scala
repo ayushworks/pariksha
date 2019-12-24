@@ -1,12 +1,9 @@
 package pariksha
 
-import cats.effect.IO
 import org.scalatest.{Matchers, WordSpec}
 import pariksha.ValidationResult.Invalid
 import pariksha.models.{Employee, Involved, Manager, Values}
-
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
 
 /**
   * @author Ayush Mittal
