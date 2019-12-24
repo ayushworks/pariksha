@@ -3,9 +3,7 @@ package pariksha
 import org.scalatest.{Matchers, WordSpec}
 import pariksha.ValidationResult.Invalid
 import pariksha.models.{Employee, Involved, Manager, Values}
-
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
 
 /**
   * @author Ayush Mittal
@@ -13,7 +11,7 @@ import scala.concurrent.Future
 class ValidationAsync extends WordSpec with Matchers with Values {
 
   import syntax._
-  import pariksha.helpers.FutureHelper.ValidationFutureTestOps
+  import pariksha.helpers.TestHelpers.ValidationTestOps
 
   "Async Validation" when {
 
@@ -25,10 +23,10 @@ class ValidationAsync extends WordSpec with Matchers with Values {
 
         invalidEmployee.validateAsyncF.isValid shouldBe false
 
-        invalidEmployee.validateAsync == Future.successful(Invalid(invalidEmployee, List(
+        invalidEmployee.validateAsyncF == Invalid(invalidEmployee, List(
           ValidationError(Employee.msgNameEmpty),
           ValidationError(Employee.msgAgeInvalid)
-        )))
+        ))
 
         invalidEmployee.validateAsyncF.errors shouldBe List(
           ValidationError(Employee.msgNameEmpty),

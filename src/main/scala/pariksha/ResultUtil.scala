@@ -1,9 +1,12 @@
 package pariksha
 
+import cats.effect.Sync
 import pariksha.RuleResult.{Failed, Passed}
 import pariksha.ValidationResult.{Invalid, Valid}
+import cats.implicits._
 
 import scala.concurrent.{ExecutionContext, Future}
+import cats._
 
 /**
   * @author Ayush Mittal
@@ -21,6 +24,13 @@ object ResultUtil {
         Future(validation.check(value))
     }).map(fromRuleResults(value, _))
 
+
+  def catsValidation[T, F[_]](value: T, validations: List[Validation[T]])(implicit p: Parallel[F], f: Sync[F]) : F[ValidationResult] = {
+    validations.map{
+      validation =>
+        f.delay(validation.check(value))
+    }.parSequence.map(fromRuleResults(value, _))
+  }
 
   def fromValidationList[T](value: T, validations: List[Validation[T]]): ValidationResult = {
     var result : RuleResult[T] = Passed(value)

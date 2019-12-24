@@ -1,5 +1,7 @@
 package pariksha
 
+import cats.Parallel
+import cats.effect.Sync
 import scala.concurrent.{ExecutionContext, Future}
 
 /**
@@ -21,6 +23,9 @@ trait Validator[T] {
     ValidationResult.validateAsync(obj, validations)
   }
 
+  def validateF[F[_]](obj: T)(implicit p: Parallel[F], f: Sync[F]) : F[ValidationResult] = {
+    ValidationResult.validateF(obj, validations)
+  }
 }
 
 object Validator {

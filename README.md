@@ -47,7 +47,7 @@ Everybody knows Jenna Fischer from the office!
 
 val beesly = Employee("Pam Beesly", 28)
 
-beesly.validate == Valid(beesly)
+beesly.validate == Valid(Employee("Pam Beesly"))
 
 ```
 
@@ -169,6 +169,30 @@ manager.validateAsync == Future.successful(Invalid(manager, List(
 ```
 
 `validateAsync` needs an implicit `execution context` and it is in this context that all validations are run.
+
+#### Support for Cats-Effect Validations :
+
+It is sometimes desirable to run validations using cats-effect types like `IO` and return a `IO` result at the end. We can
+use `validateF` for the same.
+
+```scala
+val manager = Manager("", 18)
+
+val validations = validator[Manager]
+    .check(_.name.nonEmpty, msgNameEmpty)
+    .check(_.age > 25, msgAgeInvalid)
+    
+    
+val ioValidationResult = manager.validateF[IO]
+
+ioValidationResult.unsafeRunSync() == Invalid(manager, List(
+                                                ValidationError(Manager.msgNameEmpty),
+                                                ValidationError(Manager.msgAgeInvalid)
+                                              ))
+
+```
+
+`validateF` needs an implicit `cats.Parallel` and `cats.effect.Sync` of `F` in scope.
 
 ##### Next goals :
 

@@ -13,8 +13,9 @@ publishArtifact in Test := false
 libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "3.0.2" % Test,
   // https://mvnrepository.com/artifact/com.chuusai/shapeless
-  "com.chuusai" %% "shapeless" % "2.3.2"
-
+  "com.chuusai"   %% "shapeless"   % "2.3.2",
+  "org.typelevel" %% "cats-effect" % "2.0.0",
+  "org.typelevel" %% "cats-core"   % "2.0.0"
 )
 
 homepage := Some(url("https://github.com/ayushworks/pariksha"))
